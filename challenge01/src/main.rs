@@ -8,20 +8,11 @@ fn main() {
     let users = contents
         .split("\n\n")
         .map(|user| user.replace('\n', " "))
+        .filter(|user| user_is_valid(user))
         .collect::<Vec<String>>();
 
-    let mut valid_users = 0;
-    let mut last_valid_user = String::new();
-    for user in users {
-        let valid = user_is_valid(&user);
-        // println!("{} -> {}\n", user, valid);
-        if valid {
-            valid_users += 1;
-            last_valid_user = user.clone();
-        }
-    }
-
-    println!("\nTotal valid users: {}\nLast valid user is: {}", valid_users, last_valid_user);
+    println!("Total valid users: {}", users.len());
+    println!("Last valid user: {}", users[users.len() - 1]);
 }
 
 fn user_is_valid(user: &str) -> bool {
@@ -39,8 +30,16 @@ mod tests {
     use super::*;
 
     #[test]
-    fn user_has_all_fields() {
-        let user = String::from("usr:@midudev\neme:mi@gmail.com\npsw:123456\nage:22\nloc:bcn\nfll:82");
+    fn user_is_valid_if_it_has_all_fields() {
+        let user =
+            String::from("usr:@midudev\neme:mi@gmail.com\npsw:123456\nage:22\nloc:bcn\nfll:82");
         assert!(user_is_valid(&user));
+    }
+
+    #[test]
+    fn user_is_not_valid_if_it_misses_a_field() {
+        let user =
+            String::from("psw:11133\nloc:Canary\nfll:333\nusr:@pheralb\neme:pheralb@gmail.com");
+        assert!(!user_is_valid(&user));
     }
 }
