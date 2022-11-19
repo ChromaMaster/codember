@@ -1,0 +1,9 @@
+[workspace]
+members = [
+    "src/challenge01"
+]
+
+[workspace.package]
+version = "0.1.0"
+authors = ["ChromaMaster"]
+edition = "2021"

@@ -1,9 +1,7 @@
 use std::fs;
 
 fn main() {
-    println!("Hello, world!");
-
-    let contents = fs::read_to_string("input/users.txt").expect("Cannot read users file");
+    let contents = fs::read_to_string("src/challenge01/input/users.txt").expect("Cannot read users file");
 
     let users = contents
         .split("\n\n")
