@@ -1,0 +1,17 @@
+default:
+    @just --list
+
+run +CMD:
+    go run ./cmd/{{ CMD }}/main.go
+
+test:
+    go test -failfast -shuffle on -parallel $(nproc) -cover ./...
+
+fmt:
+    go fmt ./...
+
+tidy:
+    go mod tidy
+
+lint *args="":
+    ./tools/lint.sh {{ args }}
